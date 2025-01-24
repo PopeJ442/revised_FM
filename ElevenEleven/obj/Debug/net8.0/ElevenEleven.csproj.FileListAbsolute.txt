@@ -167,3 +167,4 @@ C:\Users\POPE\Documents\C#\ElevenEleven\ElevenEleven\bin\Debug\net8.0\ElevenElev
 C:\Users\POPE\Documents\C#\ElevenEleven\ElevenEleven\bin\Debug\net8.0\ElevenEleven.pdb
 C:\Users\POPE\Documents\C#\ElevenEleven\ElevenEleven\obj\Debug\net8.0\ElevenEleven.genruntimeconfig.cache
 C:\Users\POPE\Documents\C#\ElevenEleven\ElevenEleven\obj\Debug\net8.0\ref\ElevenEleven.dll
+C:\Users\POPE\Documents\C#\ElevenEleven\ElevenEleven\obj\Debug\net8.0\ElevenEleven.sourcelink.json
