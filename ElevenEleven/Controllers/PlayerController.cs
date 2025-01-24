@@ -121,25 +121,106 @@ namespace ElevenEleven.Controllers
 
             return PartialView("_Edit", player); // Returns the "Edit" view with the player data
         }
-
-        // POST: Player/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Edit(int id, Player player)
+        public IActionResult Edit(int id, Player player, IFormFile? ProfileImage)
         {
             if (id != player.Id)
-                return BadRequest(); // Return 400 if IDs don't match
+                return BadRequest();
 
             if (ModelState.IsValid)
             {
-                _playerService.UpdatePlayer(player);
-                return RedirectToAction(nameof(Index)); // Redirect to the Index action
+                // Retrieve the existing player
+                var existingPlayer = _playerService.GetPlayerById(id);
+                if (existingPlayer == null)
+                    return NotFound();
+
+                // Update player fields
+                existingPlayer.FirstName = player.FirstName;
+                existingPlayer.MiddleName = player.MiddleName;
+                existingPlayer.LastName = player.LastName;
+                existingPlayer.DateOfBirth = player.DateOfBirth;
+                existingPlayer.Gender = player.Gender;
+                existingPlayer.Nationality = player.Nationality;
+                existingPlayer.PhoneNumber = player.PhoneNumber;
+                existingPlayer.EmailAddress = player.EmailAddress;
+                existingPlayer.ResidentialAddress = player.ResidentialAddress;
+                existingPlayer.Height = player.Height;
+                existingPlayer.Weight = player.Weight;
+                existingPlayer.PreferredFoot = player.PreferredFoot;
+
+                // Handle profile picture upload
+                if (ProfileImage != null && ProfileImage.Length > 0)
+                {
+                    using (var memoryStream = new MemoryStream())
+                    {
+                        ProfileImage.CopyTo(memoryStream);
+                        existingPlayer.ProfilePicture = memoryStream.ToArray(); // Save the image as bytes
+                    }
+                }
+                if (ProfileImage == null)
+                {
+                    Console.WriteLine("No ProfileImage uploaded.");
+                }
+                // Save changes to the database
+ 
+
+                _playerService.UpdatePlayer(existingPlayer);
+                return RedirectToAction(nameof(Index));
             }
 
-            return PartialView("_Edit", player); // Returns the "Edit" view with validation errors
+            return PartialView("_Edit", player);
         }
-       
-        
+
+        // POST: Player/Edit/5
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+        //public IActionResult Edit(int id, Player player, IFormFile? ProfileImage)
+        //{
+        //    if (id != player.Id)
+        //        return BadRequest(); // Return 400 if IDs don't match
+
+        //    if (ModelState.IsValid)
+        //    {
+        //        // Retrieve the existing player from the database
+        //        var existingPlayer = _playerService.GetPlayerById(id);
+        //        if (existingPlayer == null)
+        //            return NotFound();
+
+        //        // Update the player details
+        //        existingPlayer.FirstName = player.FirstName;
+        //        existingPlayer.MiddleName = player.MiddleName;
+        //        existingPlayer.LastName = player.LastName;
+        //        existingPlayer.DateOfBirth = player.DateOfBirth;
+        //        existingPlayer.Gender = player.Gender;
+        //        existingPlayer.Nationality = player.Nationality;
+        //        existingPlayer.PhoneNumber = player.PhoneNumber;
+        //        existingPlayer.EmailAddress = player.EmailAddress;
+        //        existingPlayer.ResidentialAddress = player.ResidentialAddress;
+        //        existingPlayer.Height = player.Height;
+        //        existingPlayer.Weight = player.Weight;
+        //        existingPlayer.PreferredFoot = player.PreferredFoot;
+
+        //        // Handle Profile Picture upload
+        //        if (ProfileImage != null && ProfileImage.Length > 0)
+        //        {
+        //            using (var memoryStream = new MemoryStream())
+        //            {
+        //                ProfileImage.CopyTo(memoryStream);
+        //                existingPlayer.ProfilePicture = memoryStream.ToArray();
+        //            }
+        //        }
+
+        //        // Update the player in the database
+        //        _playerService.UpdatePlayer(existingPlayer);
+        //        return RedirectToAction(nameof(Index));
+        //    }
+
+        //    return PartialView("_Edit", player); // Return the same view with validation errors
+        //}
+
+
+
         // GET: Player/Delete/5
         public IActionResult Delete(int id)
         {

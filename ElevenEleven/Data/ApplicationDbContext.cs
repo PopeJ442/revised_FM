@@ -10,7 +10,6 @@ namespace ElevenEleven.Data
         public DbSet<Team>Teams { get; set; }
         public DbSet<Role>Roles { get; set; }
         public DbSet<Specialization>Specializations { get; set; }
-        public DbSet<Image> Images { get; set; }
       
 
 

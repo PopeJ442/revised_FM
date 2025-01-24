@@ -2,18 +2,26 @@
 @model Player
 
 <h2 class="text-center mb-4 text-primary">Edit Player</h2>
+<form asp-action="Edit" method="post" enctype="multipart/form-data">
 
 <div class="container-fluid">
     <div class="row">
         <!-- Right column: Profile Picture -->
         <div class="col-md-4 text-center mb-4">
             <div class="position-relative">
-                <img id="profilePicturePreview" src="~/Images/default-player.jpeg" alt="Player Profile Picture" class="img-fluid w-100 h-100 rounded-circle overflow-hidden border border-primary" style="width: 150px; height: 150px; margin: 0 auto;" />
-                <label for="playerImage" class="btn btn-primary mt-3">Change Picture</label>
-                <input type="file" class="form-control-file d-none" id="playerImage" name="ProfileImage" />
+                <!-- Show existing profile picture or default image -->
+                <img id="profilePicturePreview"
+                     src="@(Model.ProfilePicture != null ? $"data:image/png;base64,{Convert.ToBase64String(Model.ProfilePicture)}" : Url.Content("~/Images/default-player.jpeg"))"
+                     alt="Player Profile Picture"
+                     class="img-fluid w-100 h-100 rounded-circle overflow-hidden border border-primary"
+                     style="width: 150px; height: 150px; margin: 0 auto;" />
+
+                <!-- File upload input -->
+                <label for="ProfileImage" class="btn btn-primary mt-3">Change Picture</label>
+                <input type="file" class="form-control-file d-none" id="ProfileImage" name="ProfileImage"
+                       onchange="previewImage(event)" />
             </div>
         </div>
-
         <!-- Left column: Form fields -->
         <div class="col-md-8">
             <form asp-action="Edit" method="post">
@@ -125,3 +133,18 @@
         </div>
     </div>
 </div>
+</form>
+<script>
+
+    // Preview the image before submitting
+    function previewImage(event) {
+        const file = event.target.files[0];
+        const reader = new FileReader();
+        reader.onload = function (e) {
+            document.getElementById('profilePicturePreview').src = e.target.result;
+        };
+        if (file) {
+            reader.readAsDataURL(file);
+        }
+    }
+</script>
