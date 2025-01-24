@@ -1,0 +1,35 @@
+﻿@model Player
+
+<h2>Player Details</h2>
+
+<div>
+    <h4>@Model.FirstName @Model.LastName</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">Date of Birth</dt>
+        <dd class="col-sm-10">@Model.DateOfBirth.ToShortDateString()</dd>
+
+        <dt class="col-sm-2">Gender</dt>
+        <dd class="col-sm-10">@Model.Gender</dd>
+
+        <dt class="col-sm-2">Nationality</dt>
+        <dd class="col-sm-10">@Model.Nationality</dd>
+
+        <dt class="col-sm-2">Phone</dt>
+        <dd class="col-sm-10">@Model.PhoneNumber</dd>
+
+        <dt class="col-sm-2">Email</dt>
+        <dd class="col-sm-10">@Model.EmailAddress</dd>
+
+        <dt class="col-sm-2">Height</dt>
+        <dd class="col-sm-10">@Model.Height cm</dd>
+
+        <dt class="col-sm-2">Weight</dt>
+        <dd class="col-sm-10">@Model.Weight kg</dd>
+
+        <dt class="col-sm-2">Preferred Foot</dt>
+        <dd class="col-sm-10">@Model.PreferredFoot</dd>
+    </dl>
+</div>
+
+<a asp-action="Index" class="btn btn-secondary">Back to List</a>

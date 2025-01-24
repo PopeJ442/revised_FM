@@ -1,0 +1,127 @@
+﻿@using ElevenEleven.Enums
+@model Player
+
+<h2 class="text-center mb-4 text-primary">Edit Player</h2>
+
+<div class="container-fluid">
+    <div class="row">
+        <!-- Right column: Profile Picture -->
+        <div class="col-md-4 text-center mb-4">
+            <div class="position-relative">
+                <img id="profilePicturePreview" src="~/Images/default-player.jpeg" alt="Player Profile Picture" class="img-fluid w-100 h-100 rounded-circle overflow-hidden border border-primary" style="width: 150px; height: 150px; margin: 0 auto;" />
+                <label for="playerImage" class="btn btn-primary mt-3">Change Picture</label>
+                <input type="file" class="form-control-file d-none" id="playerImage" name="ProfileImage" />
+            </div>
+        </div>
+
+        <!-- Left column: Form fields -->
+        <div class="col-md-8">
+            <form asp-action="Edit" method="post">
+                <input type="hidden" asp-for="Id" />
+
+                <!-- First Row: Basic Details -->
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label asp-for="FirstName" class="text-primary"></label>
+                            <input asp-for="FirstName" class="form-control border-primary" />
+                            <span asp-validation-for="FirstName" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label asp-for="MiddleName" class="text-primary"></label>
+                            <input asp-for="MiddleName" class="form-control border-primary" />
+                            <span asp-validation-for="MiddleName" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Second Row: Additional Details -->
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label asp-for="LastName" class="text-primary"></label>
+                            <input asp-for="LastName" class="form-control border-primary" />
+                            <span asp-validation-for="LastName" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label asp-for="DateOfBirth" class="text-primary"></label>
+                            <input asp-for="DateOfBirth" class="form-control border-primary" type="date" />
+                            <span asp-validation-for="DateOfBirth" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Third Row: Gender and Nationality -->
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label asp-for="Gender" class="text-primary"></label>
+                            <select asp-for="Gender" class="form-control border-primary" asp-items="Html.GetEnumSelectList<Gender>()"></select>
+                            <span asp-validation-for="Gender" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label asp-for="Nationality" class="text-primary"></label>
+                            <select asp-for="Nationality" class="form-control border-primary" asp-items="Html.GetEnumSelectList<Country>()"></select>
+                            <span asp-validation-for="Nationality" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Fourth Row: Contact Details -->
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label asp-for="PhoneNumber" class="text-primary"></label>
+                            <input asp-for="PhoneNumber" class="form-control border-primary" />
+                            <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label asp-for="EmailAddress" class="text-primary"></label>
+                            <input asp-for="EmailAddress" class="form-control border-primary" />
+                            <span asp-validation-for="EmailAddress" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Fifth Row: Physical Attributes -->
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label asp-for="Height" class="text-primary"></label>
+                            <input asp-for="Height" class="form-control border-primary" type="number" step="0.01" />
+                            <span asp-validation-for="Height" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label asp-for="Weight" class="text-primary"></label>
+                            <input asp-for="Weight" class="form-control border-primary" type="number" step="0.01" />
+                            <span asp-validation-for="Weight" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Sixth Row: Preferred Foot -->
+                <div class="form-group">
+                    <label asp-for="PreferredFoot" class="text-primary"></label>
+                    <select asp-for="PreferredFoot" class="form-control border-primary" asp-items="Html.GetEnumSelectList<PreferredFoot>()"></select>
+                    <span asp-validation-for="PreferredFoot" class="text-danger"></span>
+                </div>
+
+                <!-- Form Buttons -->
+                <div class="form-group text-center mt-4">
+                    <button type="submit" class="btn btn-primary">Save Changes</button>
+                    <a asp-action="Index" class="btn btn-secondary">Cancel</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
